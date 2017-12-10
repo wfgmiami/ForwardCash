@@ -1,57 +1,33 @@
 package com.example.demo;
 
+import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
+import java.util.List;
+import java.io.File;
 
-/**
- * @author Greg Turnquist
- */
-// tag::code[]
 @Component
 public class DatabaseLoader implements CommandLineRunner {
-
-	private final EmployeeRepository employees;
-	private final ManagerRepository managers;
+	
+	private ProjectedCashRepository projectedCash;
 
 	@Autowired
-	public DatabaseLoader(EmployeeRepository employeeRepository,
-						  ManagerRepository managerRepository) {
-
-		this.employees = employeeRepository;
-		this.managers = managerRepository;
+	public DatabaseLoader(ProjectedCashRepository projectedCash) {
+		this.projectedCash = projectedCash;
 	}
-
+	
 	@Override
-	public void run(String... strings) throws Exception {
-
-		Manager greg = this.managers.save(new Manager("greg", "turnquist",
-							"ROLE_MANAGER"));
-		Manager oliver = this.managers.save(new Manager("oliver", "gierke",
-							"ROLE_MANAGER"));
-
-		SecurityContextHolder.getContext().setAuthentication(
-			new UsernamePasswordAuthenticationToken("greg", "doesn't matter",
-				AuthorityUtils.createAuthorityList("ROLE_MANAGER")));
-
-		this.employees.save(new Employee("Frodo", "Baggins", "ring bearer", greg));
-		this.employees.save(new Employee("Bilbo", "Baggins", "burglar", greg));
-		this.employees.save(new Employee("Gandalf", "the Grey", "wizard", greg));
-
-		SecurityContextHolder.getContext().setAuthentication(
-			new UsernamePasswordAuthenticationToken("oliver", "doesn't matter",
-				AuthorityUtils.createAuthorityList("ROLE_MANAGER")));
-
-		this.employees.save(new Employee("Samwise", "Gamgee", "gardener", oliver));
-		this.employees.save(new Employee("Merry", "Brandybuck", "pony rider", oliver));
-		this.employees.save(new Employee("Peregrin", "Took", "pipe smoker", oliver));
+	public void run(String ...strings) throws Exception {
+		ObjectMapper objectMapper = new ObjectMapper();
+		TypeReference<List<ProjectedCash>> typeReference = new TypeReference<List<ProjectedCash>>() {};
 		
-		Employee emp = this.employees.findOne(1L);
-		System.out.println(".........Employee" + emp.toString());
+		List<ProjectedCash> projectedCash = objectMapper.readValue(new File("cashProjection.json"), typeReference);
+	
+		this.projectedCash.save(projectedCash);
+		ProjectedCash pc = this.projectedCash.findOne(5L);
+		System.out.println(pc.toString());
 
-		SecurityContextHolder.clearContext();
 	}
 }

@@ -1,10 +1,12 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-		entry: "./src/main/js/app.js",
+		entry: "./src/main/js/browser/react/index.js",
 		output: {
 			path:__dirname,
-			filename:"./src/main/resources/static/build/bundle.js"
+			filename:"./src/main/resources/static/build/bundle.js",
+			publicPath: '/dev'
 		},
 		devtool:"source-map",
 		resolve:{
@@ -13,17 +15,15 @@ module.exports = {
 			}
 		},
 		module: {
-			loaders:[
-				{
-					test: path.join(__dirname, "."),
-					exclude:  /node_modules/,
-					loader:"babel",
-					query: { 
-						presets: ['es2015', 'react']
-					}
-				}
-				
-			
-			]
-		}
-}
+			  loaders: [
+	              { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'},
+	              { test: /\.css$/, loader: 'style-loader!css-loader' }
+	          ]
+		},
+		plugins: [
+		    new webpack.optimize.OccurrenceOrderPlugin(),
+		    new webpack.HotModuleReplacementPlugin(),
+		    new webpack.NoEmitOnErrorsPlugin(),
+		  
+		  ],
+};
