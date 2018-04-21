@@ -168,7 +168,7 @@ export default class Content extends React.Component{
   
   
 	render(){
-		console.log('......in Content state, props', this.state, this.props);
+		console.log('......//in Content state, props', this.state, this.props);
 		return(
 		<DraggableContainer>
 	  		<ReactDataGrid

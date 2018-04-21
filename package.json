@@ -23,7 +23,7 @@
 	},
 	"scripts": {
 		"webpack": "./node_modules/webpack/bin/webpack.js",
-		"start:dev": "npm run webpack -- -w & nodemon .src/main/js/server/index.js",
+		"start:dev": "npm run webpack -- -w & nodemon ./src/main/js/server/index.js",
 		"watch": "webpack --watch -d",
 		"lint": "node ./node_modules/eslint/bin/eslint.js ./browser",
 		"lint:fix": "node ./node_modules/eslint/bin/eslint.js ./browser --fix"

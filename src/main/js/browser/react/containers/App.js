@@ -43,41 +43,4 @@ class App extends Component{
 
 export default App;
 
-//			<table>
-//				<tbody>
-//					<tr>
-//						<th>Date</th>
-//						<th>Desc 1</th>
-//						<th>Desc 2</th>
-//						<th>LASDTF</th>
-//						<th>LATFINSI</th>
-//						<th>LATFHY</th>
-//						<th>LASDHYM</th>
-//						<th>NTL</th>
-//						<th>LAAMTTF</th>
-//						<th>CA</th>
-//						<th>NY</th>
-//						<th>NJ</th>
-//					</tr>
-//					{projectedCashes}
-//				</tbody>
-//			</table>
-
-
-//			<tr>
-//				<td>{this.props.projectedCash.date}</td>
-//				<td>{this.props.projectedCash.desc1}</td>
-//				<td>{this.props.projectedCash.desc2}</td>
-//				<td>{this.props.projectedCash.lasdtf}</td>
-//				<td>{this.props.projectedCash.latfinsi}</td>
-//				<td>{this.props.projectedCash.latfhy}</td>
-//				<td>{this.props.projectedCash.lasdhym}</td>
-//				<td>{this.props.projectedCash.ntl}</td>
-//				<td>{this.props.projectedCash.laamttf}</td>
-//				<td>{this.props.projectedCash.ca}</td>
-//				<td>{this.props.projectedCash.ny}</td>
-//				<td>{this.props.projectedCash.nj}</td>
-//			</tr>
-
-
 
